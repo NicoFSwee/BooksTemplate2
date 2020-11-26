@@ -1,0 +1,37 @@
+﻿@page
+@model DetailsModel
+
+@{
+  ViewData["Title"] = "Details";
+}
+
+<h1>@Model.AuthorInfo.Author</h1>
+
+<h4>Bücher:</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Titel
+      </th>
+      <th>
+        Isbn
+      </th>
+      <th>
+        Verlag
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var book in Model.AuthorInfo.Books)
+      {
+      <tr>
+          <td>@book.Title</td>
+          <td>@book.Isbn</td>
+          <td>@book.Publishers</td>
+      </tr>
+      }
+</table>
+<div>
+  <a asp-page="../Index">Zurück zur Liste</a>
+</div>

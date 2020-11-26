@@ -1,0 +1,50 @@
+﻿<controls:MetroWindow x:Class="Books.Wpf.Views.BookEditCreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:viewModels="clr-namespace:Books.Wpf.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" 
+        Height="320" Width="690" 
+        WindowStyle="ThreeDBorderWindow" BorderThickness="2" 
+        BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" ResizeMode="NoResize">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label>Titel:</Label>
+        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Width="400" Grid.Column="1"></TextBox>
+        <Label Grid.Row="1">Verlag:</Label>
+        <ComboBox SelectedItem="{Binding SelectedPublisher}" ItemsSource="{Binding Publishers}" Grid.Row="1" Grid.Column="1" Width="400"></ComboBox>
+        <Label Grid.Row="2">Autoren:</Label>
+        <ListView Grid.Row="2" Width="200" Height="150" HorizontalAlignment="Left" 
+                 Grid.Column="1" SelectedItem="{Binding AuthorInListView, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding SelectedAuthors}"></ListView>
+        <ComboBox Grid.Row="2" Grid.Column="1" Height="30" Width="200" VerticalAlignment="Top" 
+                  HorizontalAlignment="Right" ItemsSource="{Binding Authors, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Author"
+                  SelectedItem="{Binding SelectedAuthor}"></ComboBox>
+        <Label Grid.Row="3">Isbn:</Label>
+        <TextBox Text="{Binding Isbn, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Width="200" HorizontalAlignment="Left" Grid.Column="1"></TextBox>
+
+        <StackPanel VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" Orientation="Vertical">
+            <Button Content="Hinzufügen" Command="{Binding CmdAddAuthor}"></Button>
+            <Button Content="Entfernen" Command="{Binding CmdRemoveAuthor}"></Button>
+        </StackPanel>
+
+        <Button Grid.Column="2" Grid.Row="4" Command="{Binding CmdSaveBook}" Content="Buch speichern"></Button>
+        <Label Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource ErrorFontColorStyle}" Content="{Binding DbError}"></Label>
+    </Grid>
+  
+</controls:MetroWindow>

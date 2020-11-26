@@ -1,0 +1,33 @@
+﻿@page
+@model CreateModel
+@{
+  ViewData["Title"] = "Autor/in Anlegen";
+}
+
+<h1>Neue/n Autor/in Anlegen</h1>
+
+<h4>Autor/in</h4>
+<hr />
+<div class="row">
+  <div class="col-md-4">
+    <form asp-action="Create">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="form-group">
+        <label asp-for="Author" class="control-label"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Speichern" class="btn btn-primary"/>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div>
+  <a asp-page="../Index">Zurück zur Liste</a>
+</div>
+
+@section Scripts {
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
