@@ -12,5 +12,6 @@ namespace Books.Core.Contracts
         Task<BookDto[]> GetAllBookDtosAsync();
         Task<string[]> GetAllPublishersAsync();
         Task AddAsync(Book book);
+        void RemoveBook(Book book);
     }
 }

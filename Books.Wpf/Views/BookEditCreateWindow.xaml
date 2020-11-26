@@ -41,9 +41,10 @@
         <StackPanel VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" Orientation="Vertical">
             <Button Content="Hinzufügen" Command="{Binding CmdAddAuthor}"></Button>
             <Button Content="Entfernen" Command="{Binding CmdRemoveAuthor}"></Button>
+            <Button Content="Buch speichern" Command="{Binding CmdSaveBook}"></Button>
         </StackPanel>
-
-        <Button Grid.Column="2" Grid.Row="4" Command="{Binding CmdSaveBook}" Content="Buch speichern"></Button>
+        
+        <!--<Button Content="Buch speichern" Grid.Column="2" Grid.Row="4" Command="{Binding CmdSaveBook}"></Button>-->
         <Label Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource ErrorFontColorStyle}" Content="{Binding DbError}"></Label>
     </Grid>
   

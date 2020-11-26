@@ -18,6 +18,8 @@ namespace Books.Persistence
             _dbContext = dbContext;
         }
 
+        public void RemoveBook(Book book)
+            =>  _dbContext.Books.Remove(book);
         public async Task AddAsync(Book book)
             => await _dbContext.Books.AddAsync(book);
 

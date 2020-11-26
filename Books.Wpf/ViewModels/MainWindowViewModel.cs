@@ -104,6 +104,7 @@ namespace Books.Wpf.ViewModels
                         {
                             SelectedBook = null;
                             Controller.ShowWindow(await BookEditCreateViewModel.Create(Controller, SelectedBook), true);
+                            await LoadBooks();
                         },
                         canExecute: _ => SelectedBook == null);
                 }
@@ -128,6 +129,7 @@ namespace Books.Wpf.ViewModels
                         {
                             Controller.ShowWindow(await BookEditCreateViewModel.Create(Controller, SelectedBook), true);
                             SelectedBook = null;
+                            await LoadBooks();
                         },
                         canExecute: _ => SelectedBook != null);
                 }
@@ -137,6 +139,35 @@ namespace Books.Wpf.ViewModels
             set
             {
                 _cmdEditBook = value;
+            }
+        }
+
+        private ICommand _cmdDeleteBook;
+        public ICommand CmdDeleteBook 
+        { 
+            get
+            {
+                if(_cmdDeleteBook == null)
+                {
+                    _cmdDeleteBook = new RelayCommand(
+                        execute: async _ =>
+                        {
+                            await using (UnitOfWork uow = new UnitOfWork())
+                            {
+                                var tmpBook = await uow.Books.LookUpBookAsync(SelectedBook.Title);
+
+                                uow.Books.RemoveBook(tmpBook[0]);
+                                Books.Remove(SelectedBook);
+                                await uow.SaveChangesAsync();
+                            }
+                        },
+                        canExecute: _ => SelectedBook != null);
+                }
+                return _cmdDeleteBook;
+            }
+            set
+            {
+                _cmdDeleteBook = value;
             }
         }
 

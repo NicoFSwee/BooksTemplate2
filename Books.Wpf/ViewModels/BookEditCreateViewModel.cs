@@ -1,4 +1,5 @@
-﻿using Books.Core.DataTransferObjects;
+﻿using Books.Core.Contracts;
+using Books.Core.DataTransferObjects;
 using Books.Core.Entities;
 using Books.Core.Validations;
 using Books.Persistence;
@@ -178,18 +179,20 @@ namespace Books.Wpf.ViewModels
                                 });
                             }
 
-                            try
+                            await using (UnitOfWork uow = new UnitOfWork())
                             {
-                                await using (UnitOfWork uow = new UnitOfWork())
+                                try
                                 {
                                     await uow.Books.AddAsync(newBook);
                                     await uow.SaveChangesAsync();
+                                    Controller.CloseWindow(this);
+                                }
+                                catch (ValidationException ex)
+                                {
+                                    DbError = ex.Message;
                                 }
                             }
-                            catch(ValidationException ex)
-                            {
-                                DbError = ex.Message;
-                            }
+                            
                         },
                         canExecute: _ => IsValid);
                 }
